@@ -30,8 +30,8 @@ SW_BOARD_IR_RECOVERY := true
 # wifi and bt configuration
 
 # 1. Wifi Configuration
-BOARD_WIFI_VENDOR := realtek
-#BOARD_WIFI_VENDOR := broadcom
+#BOARD_WIFI_VENDOR := realtek
+BOARD_WIFI_VENDOR := broadcom
 
 # 1.1 realtek wifi support
 ifeq ($(BOARD_WIFI_VENDOR), realtek)
