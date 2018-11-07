@@ -23,7 +23,7 @@
 namespace android {
 
 struct CtpName{
-
+/*
 		static const String8 ctp_name[] = {String8("gslX680"),String8("gt82x"),String8("ft5x_ts"),String8("sunxi-ts"),String8("gt818_ts"),
 		String8("gt811"),String8("sw-ts"),String8("gt9xx"),String8("zet622x")};
 
@@ -31,9 +31,10 @@ struct CtpName{
 	        number (9),
 	        default_name(String8("tp")),
 					ctp_name() {}
-//		ctp_name ({String8("gslX680"),String8("gt82x"),String8("ft5x_ts"),String8("sunxi-ts"),String8("gt818_ts"),
-//		String8("gt811"),String8("sw-ts"),String8("gt9xx"),String8("zet622x")}){
-//		}
+		ctp_name ({String8("gslX680"),String8("gt82x"),String8("ft5x_ts"),String8("sunxi-ts"),String8("gt818_ts"),
+		String8("gt811"),String8("sw-ts"),String8("gt9xx"),String8("zet622x")}){
+		}
+*/
 	int number;
 	String8 default_name;
 	String8 ctp_name[9];

@@ -23,7 +23,9 @@
 #include <androidfw/InputDevice.h>
 
 namespace android {
-CtpName name = CtpName();
+  //  CtpName name = CtpName();
+    CtpName name = {9,String8("tp"),{String8("gslX680"),String8("gt82x"),String8("ft5x_ts"),String8("sunxi-ts"),String8("gt818_ts"),
+      String8("gt811"),String8("sw-ts"),String8("gt9xx"),String8("zet622x")}};
 static const char* CONFIGURATION_FILE_DIR[] = {
         "idc/",
         "keylayout/",
@@ -78,16 +80,16 @@ String8 getInputDeviceConfigurationFilePathByDeviceIdentifier(
             return productPath;
         }
     }
-    int i = 0;  
+    int i = 0;
    	while(i < name.number){
-	   	#if DEBUG_PROBE        
-			LOGE("#######name = %s", name.default_name.string());       
+	   	#if DEBUG_PROBE
+			LOGE("#######name = %s", name.default_name.string());
 			LOGE("#######ctp_name = %s", name.ctp_name[i].string());
-		#endif       
+		#endif
 		if(name.ctp_name[i] == deviceIdentifier.name){
-			return getInputDeviceConfigurationFilePathByName(name.default_name, type);	
-		}	
-		i++;    
+			return getInputDeviceConfigurationFilePathByName(name.default_name, type);
+		}
+		i++;
 	}
 
 
