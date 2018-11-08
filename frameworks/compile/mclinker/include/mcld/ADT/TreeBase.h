@@ -39,7 +39,7 @@ namespace proxy
 
 } // namespace of template proxy
 
-struct TreeIteratorBase
+struct TreeIteratorBase1
 {
 public:
   enum Direct {
@@ -55,15 +55,15 @@ public:
   NodeBase* m_pNode;
 
 public:
-  TreeIteratorBase()
+  TreeIteratorBase1()
   : m_pNode(0)
   { }
 
-  TreeIteratorBase(NodeBase *X)
+  TreeIteratorBase1(NodeBase *X)
   : m_pNode(X)
   { }
 
-  virtual ~TreeIteratorBase(){};
+  virtual ~TreeIteratorBase1(){};
 
   template<size_t DIRECT>
   inline void move() {
@@ -79,29 +79,29 @@ public:
   bool hasLeftChild() const
   { return ((m_pNode->left) != (m_pNode->left->right)); }
 
-  bool operator==(const TreeIteratorBase& y) const
+  bool operator==(const TreeIteratorBase1& y) const
   { return this->m_pNode == y.m_pNode; }
 
-  bool operator!=(const TreeIteratorBase& y) const
+  bool operator!=(const TreeIteratorBase1& y) const
   { return this->m_pNode != y.m_pNode; }
 };
 
 namespace proxy
 {
   template<>
-  inline void move<TreeIteratorBase::Leftward>(NodeBase *&X)
+  inline void move<TreeIteratorBase1::Leftward>(NodeBase *&X)
   { X = X->left; }
 
   template<>
-  inline void move<TreeIteratorBase::Rightward>(NodeBase *&X)
+  inline void move<TreeIteratorBase1::Rightward>(NodeBase *&X)
   { X = X->right; }
 
   template<>
-  inline void hook<TreeIteratorBase::Leftward>(NodeBase *X, const NodeBase *Y)
+  inline void hook<TreeIteratorBase1::Leftward>(NodeBase *X, const NodeBase *Y)
   { X->left = const_cast<NodeBase*>(Y); }
 
   template<>
-  inline void hook<TreeIteratorBase::Rightward>(NodeBase* X, const NodeBase* Y)
+  inline void hook<TreeIteratorBase1::Rightward>(NodeBase* X, const NodeBase* Y)
   { X->right = const_cast<NodeBase*>(Y); }
 
 } //namespace of template proxy

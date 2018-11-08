@@ -48,22 +48,22 @@ void BinTreeTest::TearDown()
 TEST_F( BinTreeTest,Two_non_null_tree_merge) 
 {
   BinaryTree<int>::iterator pos = m_pTestee->root();
-  m_pTestee->join<TreeIteratorBase::Rightward>(pos,0);
+  m_pTestee->join<TreeIteratorBase1::Rightward>(pos,0);
   --pos;
-  m_pTestee->join<TreeIteratorBase::Rightward>(pos,1);
-  m_pTestee->join<TreeIteratorBase::Leftward>(pos,1);
+  m_pTestee->join<TreeIteratorBase1::Rightward>(pos,1);
+  m_pTestee->join<TreeIteratorBase1::Leftward>(pos,1);
   --pos;
-  m_pTestee->join<TreeIteratorBase::Rightward>(pos,2);
-  m_pTestee->join<TreeIteratorBase::Leftward>(pos,2);
+  m_pTestee->join<TreeIteratorBase1::Rightward>(pos,2);
+  m_pTestee->join<TreeIteratorBase1::Leftward>(pos,2);
 
   BinaryTree<int> *mergeTree = new BinaryTree<int>;
   BinaryTree<int>::iterator pos2 = mergeTree->root();
-  mergeTree->join<TreeIteratorBase::Rightward>(pos2,1);
+  mergeTree->join<TreeIteratorBase1::Rightward>(pos2,1);
   --pos2;
-  mergeTree->join<TreeIteratorBase::Rightward>(pos2,1);
-  mergeTree->join<TreeIteratorBase::Leftward>(pos2,1);
+  mergeTree->join<TreeIteratorBase1::Rightward>(pos2,1);
+  mergeTree->join<TreeIteratorBase1::Leftward>(pos2,1);
 
-  m_pTestee->merge<TreeIteratorBase::Rightward>(pos,*mergeTree); 
+  m_pTestee->merge<TreeIteratorBase1::Rightward>(pos,*mergeTree); 
   delete mergeTree;
   EXPECT_TRUE(m_pTestee->size()==8);
 }
@@ -74,15 +74,15 @@ TEST_F( BinTreeTest, A_null_tree_merge_a_non_null_tree)
   BinaryTree<int>::iterator pos = m_pTestee->root();
  
   BinaryTree<int> *mergeTree = new BinaryTree<int>;
-  mergeTree->join<TreeIteratorBase::Rightward>(pos,0);
+  mergeTree->join<TreeIteratorBase1::Rightward>(pos,0);
   --pos;
-  mergeTree->join<TreeIteratorBase::Rightward>(pos,1);
-  mergeTree->join<TreeIteratorBase::Leftward>(pos,1);
+  mergeTree->join<TreeIteratorBase1::Rightward>(pos,1);
+  mergeTree->join<TreeIteratorBase1::Leftward>(pos,1);
   --pos;
-  mergeTree->join<TreeIteratorBase::Rightward>(pos,2);
-  mergeTree->join<TreeIteratorBase::Leftward>(pos,2);
+  mergeTree->join<TreeIteratorBase1::Rightward>(pos,2);
+  mergeTree->join<TreeIteratorBase1::Leftward>(pos,2);
 
-  m_pTestee->merge<TreeIteratorBase::Rightward>(pos,*mergeTree); 
+  m_pTestee->merge<TreeIteratorBase1::Rightward>(pos,*mergeTree); 
 
   delete mergeTree;
   EXPECT_TRUE(m_pTestee->size()==5);
@@ -91,17 +91,17 @@ TEST_F( BinTreeTest, A_null_tree_merge_a_non_null_tree)
 TEST_F( BinTreeTest, A_non_null_tree_merge_a_null_tree) 
 { 
   BinaryTree<int>::iterator pos = m_pTestee->root();
-  m_pTestee->join<TreeIteratorBase::Rightward>(pos,0);
+  m_pTestee->join<TreeIteratorBase1::Rightward>(pos,0);
   --pos;
-  m_pTestee->join<TreeIteratorBase::Rightward>(pos,1);
-  m_pTestee->join<TreeIteratorBase::Leftward>(pos,1);
+  m_pTestee->join<TreeIteratorBase1::Rightward>(pos,1);
+  m_pTestee->join<TreeIteratorBase1::Leftward>(pos,1);
   --pos;
-  m_pTestee->join<TreeIteratorBase::Rightward>(pos,2);
-  m_pTestee->join<TreeIteratorBase::Leftward>(pos,2);
+  m_pTestee->join<TreeIteratorBase1::Rightward>(pos,2);
+  m_pTestee->join<TreeIteratorBase1::Leftward>(pos,2);
   
   BinaryTree<int> *mergeTree = new BinaryTree<int>;
   BinaryTree<int>::iterator pos2 = mergeTree->root(); 
-  mergeTree->merge<TreeIteratorBase::Rightward>(pos2,*m_pTestee); 
+  mergeTree->merge<TreeIteratorBase1::Rightward>(pos2,*m_pTestee); 
 
   //delete m_pTestee;
   EXPECT_TRUE(mergeTree->size()==5);
@@ -115,7 +115,7 @@ TEST_F( BinTreeTest, Two_null_tree_merge)
   BinaryTree<int> *mergeTree = new BinaryTree<int>;
   BinaryTree<int>::iterator pos2 = mergeTree->root(); 
 
-  mergeTree->merge<TreeIteratorBase::Rightward>(pos2,*m_pTestee); 
+  mergeTree->merge<TreeIteratorBase1::Rightward>(pos2,*m_pTestee); 
 
   //delete m_pTestee;
   EXPECT_TRUE(mergeTree->size()==0);

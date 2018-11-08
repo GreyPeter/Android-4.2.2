@@ -27,15 +27,15 @@ namespace mcld
 template<class DataType>
 class BinaryTree;
 
-class DFSIterator : public TreeIteratorBase
+class DFSIterator : public TreeIteratorBase1
 {
 public:
   DFSIterator()
-  : TreeIteratorBase()
+  : TreeIteratorBase1()
   { }
 
   DFSIterator(NodeBase *X)
-    : TreeIteratorBase(X) {
+    : TreeIteratorBase1(X) {
     if (hasRightChild())
       m_Stack.push(m_pNode->right);
     if (hasLeftChild())
@@ -62,15 +62,15 @@ private:
     std::stack<NodeBase *> m_Stack;
 };
 
-class BFSIterator : public TreeIteratorBase
+class BFSIterator : public TreeIteratorBase1
 {
 public:
   BFSIterator()
-  : TreeIteratorBase()
+  : TreeIteratorBase1()
   { }
 
   BFSIterator(NodeBase *X)
-    : TreeIteratorBase(X) {
+    : TreeIteratorBase1(X) {
     if (hasRightChild())
       m_Queue.push(m_pNode->right);
     if (hasLeftChild())
@@ -183,10 +183,10 @@ class BinaryTree;
  *  TreeIterator is bi-directional. Incremental direction means to move
  *  rightward, and decremental direction is leftward.
  *
- *  @see TreeIteratorBase
+ *  @see TreeIteratorBase1
  */
 template<class DataType, class Traits>
-struct TreeIterator : public TreeIteratorBase
+struct TreeIterator : public TreeIteratorBase1
 {
 public:
   typedef DataType                       value_type;
@@ -207,10 +207,10 @@ public:
 
 public:
   TreeIterator()
-  : TreeIteratorBase() {}
+  : TreeIteratorBase1() {}
 
   TreeIterator(const iterator &X)
-    : TreeIteratorBase(X.m_pNode) {}
+    : TreeIteratorBase1(X.m_pNode) {}
 
   ~TreeIterator() {}
 
@@ -228,29 +228,29 @@ public:
   { return (!isRoot() && (0 != static_cast<node_type*>(m_pNode)->data)); }
 
   Self& operator++() {
-    this->move<TreeIteratorBase::Rightward>();
+    this->move<TreeIteratorBase1::Rightward>();
     return *this;
   }
 
   Self operator++(int) {
     Self tmp = *this;
-    this->move<TreeIteratorBase::Rightward>();
+    this->move<TreeIteratorBase1::Rightward>();
     return tmp;
   }
 
   Self& operator--() {
-    this->move<TreeIteratorBase::Leftward>();
+    this->move<TreeIteratorBase1::Leftward>();
     return *this;
   }
 
   Self operator--(int) {
     Self tmp = *this;
-    this->move<TreeIteratorBase::Leftward>();
+    this->move<TreeIteratorBase1::Leftward>();
     return tmp;
   }
 
   explicit TreeIterator(NodeBase* X)
-    : TreeIteratorBase(X) {}
+    : TreeIteratorBase1(X) {}
 };
 
 /** \class BinaryTreeBase
@@ -443,7 +443,7 @@ public:
     node_type *node = BinaryTreeBase<DataType>::createNode();
     node->data = const_cast<DataType*>(&value);
     if (position.isRoot())
-      proxy::hook<TreeIteratorBase::Leftward>(position.m_pNode,
+      proxy::hook<TreeIteratorBase1::Leftward>(position.m_pNode,
                           const_cast<const node_type*>(node));
     else
       proxy::hook<DIRECT>(position.m_pNode,
@@ -476,4 +476,3 @@ public:
 } // namespace of mcld
 
 #endif
-

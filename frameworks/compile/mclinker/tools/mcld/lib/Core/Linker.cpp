@@ -134,9 +134,9 @@ enum Linker::ErrorCode Linker::config(const LinkerConfig& pConfig) {
 
 void Linker::advanceRoot() {
   if (mRoot->isRoot()) {
-    mRoot->move<mcld::TreeIteratorBase::Leftward>();
+    mRoot->move<mcld::TreeIteratorBase1::Leftward>();
   } else {
-    mRoot->move<mcld::TreeIteratorBase::Rightward>();
+    mRoot->move<mcld::TreeIteratorBase1::Rightward>();
   }
   return;
 }

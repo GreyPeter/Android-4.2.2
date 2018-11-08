@@ -82,8 +82,8 @@ private:
 
 public:
   enum Direction {
-    Inclusive  = TreeIteratorBase::Leftward,
-    Positional = TreeIteratorBase::Rightward
+    Inclusive  = TreeIteratorBase1::Leftward,
+    Positional = TreeIteratorBase1::Rightward
   };
 
   typedef BinaryTree<Input>::iterator       iterator;
@@ -99,19 +99,19 @@ public:
    */
   struct Mover {
     virtual ~Mover() {}
-    virtual void connect(TreeIteratorBase& pFrom, const TreeIteratorBase& pTo) const = 0;
-    virtual void move(TreeIteratorBase& pNode) const = 0;
+    virtual void connect(TreeIteratorBase1& pFrom, const TreeIteratorBase1& pTo) const = 0;
+    virtual void move(TreeIteratorBase1& pNode) const = 0;
   };
 
   /** \class Succeeder
    *  \brief class Succeeder moves the iterator afterward.
    */
   struct Succeeder : public Mover {
-    virtual void connect(TreeIteratorBase& pFrom, const TreeIteratorBase& pTo) const {
+    virtual void connect(TreeIteratorBase1& pFrom, const TreeIteratorBase1& pTo) const {
       proxy::hook<Positional>(pFrom.m_pNode, pTo.m_pNode);
     }
 
-    virtual void move(TreeIteratorBase& pNode) const {
+    virtual void move(TreeIteratorBase1& pNode) const {
       pNode.move<Positional>();
     }
   };
@@ -120,11 +120,11 @@ public:
    *  \brief class Includer moves the iterator downward.
    */
   struct Includer : public Mover {
-    virtual void connect(TreeIteratorBase& pFrom, const TreeIteratorBase& pTo) const {
+    virtual void connect(TreeIteratorBase1& pFrom, const TreeIteratorBase1& pTo) const {
       proxy::hook<Inclusive>(pFrom.m_pNode, pTo.m_pNode);
     }
 
-    virtual void move(TreeIteratorBase& pNode) const {
+    virtual void move(TreeIteratorBase1& pNode) const {
       pNode.move<Inclusive>();
     }
   };
@@ -146,33 +146,33 @@ public:
   //  @param pRoot  position the parent node
   //  @param pMover the direction of the connecting edge of the parent node.
   template<size_t DIRECT>
-  InputTree& insert(TreeIteratorBase pRoot,
+  InputTree& insert(TreeIteratorBase1 pRoot,
                     const std::string& pNamespec,
                     const sys::fs::Path& pPath,
                     unsigned int pType = Input::Unknown);
 
   template<size_t DIRECT>
-  InputTree& enterGroup(TreeIteratorBase pRoot);
+  InputTree& enterGroup(TreeIteratorBase1 pRoot);
 
   template<size_t DIRECT>
-  InputTree& insert(TreeIteratorBase pRoot,
+  InputTree& insert(TreeIteratorBase1 pRoot,
                     const Input& pInput);
 
-  InputTree& merge(TreeIteratorBase pRoot, 
+  InputTree& merge(TreeIteratorBase1 pRoot, 
                    const Mover& pMover,
                    InputTree& pTree);
 
-  InputTree& insert(TreeIteratorBase pRoot,
+  InputTree& insert(TreeIteratorBase1 pRoot,
                     const Mover& pMover,
                     const std::string& pNamespec,
                     const sys::fs::Path& pPath,
                     unsigned int pType = Input::Unknown);
 
-  InputTree& insert(TreeIteratorBase pRoot,
+  InputTree& insert(TreeIteratorBase1 pRoot,
                     const Mover& pMover,
                     const Input& pInput);
 
-  InputTree& enterGroup(TreeIteratorBase pRoot,
+  InputTree& enterGroup(TreeIteratorBase1 pRoot,
                         const Mover& pMover);
 
   // -----  observers  ----- //
@@ -200,7 +200,7 @@ bool isGroup(const InputTree::const_bfs_iterator& pos);
 // template member functions
 template<size_t DIRECT>
 mcld::InputTree&
-mcld::InputTree::insert(mcld::TreeIteratorBase pRoot,
+mcld::InputTree::insert(mcld::TreeIteratorBase1 pRoot,
                         const std::string& pNamespec,
                         const mcld::sys::fs::Path& pPath,
                         unsigned int pType)
@@ -208,7 +208,7 @@ mcld::InputTree::insert(mcld::TreeIteratorBase pRoot,
   BinTreeTy::node_type* node = createNode();
   node->data = m_FileFactory.produce(pNamespec, pPath, pType); 
   if (pRoot.isRoot())
-    proxy::hook<TreeIteratorBase::Leftward>(pRoot.m_pNode,
+    proxy::hook<TreeIteratorBase1::Leftward>(pRoot.m_pNode,
         const_cast<const node_type*>(node));
   else
     proxy::hook<DIRECT>(pRoot.m_pNode,
@@ -218,11 +218,11 @@ mcld::InputTree::insert(mcld::TreeIteratorBase pRoot,
 
 template<size_t DIRECT>
 mcld::InputTree&
-mcld::InputTree::enterGroup(mcld::TreeIteratorBase pRoot)
+mcld::InputTree::enterGroup(mcld::TreeIteratorBase1 pRoot)
 {
   BinTreeTy::node_type* node = createNode(); 
   if (pRoot.isRoot())
-    proxy::hook<TreeIteratorBase::Leftward>(pRoot.m_pNode,
+    proxy::hook<TreeIteratorBase1::Leftward>(pRoot.m_pNode,
         const_cast<const node_type*>(node));
   else
     proxy::hook<DIRECT>(pRoot.m_pNode,
@@ -231,13 +231,13 @@ mcld::InputTree::enterGroup(mcld::TreeIteratorBase pRoot)
 }
 
 template<size_t DIRECT>
-mcld::InputTree& mcld::InputTree::insert(mcld::TreeIteratorBase pRoot,
+mcld::InputTree& mcld::InputTree::insert(mcld::TreeIteratorBase1 pRoot,
 	                                 const mcld::Input& pInput)
 {
   BinTreeTy::node_type* node = createNode();
   node->data = const_cast<mcld::Input*>(&pInput);
   if (pRoot.isRoot())
-    proxy::hook<TreeIteratorBase::Leftward>(pRoot.m_pNode,
+    proxy::hook<TreeIteratorBase1::Leftward>(pRoot.m_pNode,
                                          const_cast<const node_type*>(node));
   else
     proxy::hook<DIRECT>(pRoot.m_pNode,

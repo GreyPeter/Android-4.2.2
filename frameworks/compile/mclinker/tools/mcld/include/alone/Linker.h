@@ -18,7 +18,7 @@ class TargetLDBackend;
 class MCLDDriver;
 class MemoryFactory;
 class MCLDInfo;
-class TreeIteratorBase;
+class TreeIteratorBase1;
 class Input;
 
 namespace sys { namespace fs {
@@ -60,7 +60,7 @@ private:
   mcld::MCLDDriver *mDriver;
   MemoryFactory *mMemAreaFactory;
   mcld::MCLDInfo *mLDInfo;
-  mcld::TreeIteratorBase *mRoot;
+  mcld::TreeIteratorBase1 *mRoot;
   bool mShared;
   std::string mSOName;
 
